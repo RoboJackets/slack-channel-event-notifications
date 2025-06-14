@@ -1,0 +1,30 @@
+---
+name: Build Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build-artifact:
+    name: Build Lambda ZIP
+    uses: ./.github/workflows/build-artifact.yml
+
+  deploy-test:
+    name: Deploy Test
+    uses: ./.github/workflows/deploy.yml
+    needs:
+      - build-artifact
+    with:
+      environment: test
+
+  deploy-production:
+    name: Deploy Production
+    uses: ./.github/workflows/deploy.yml
+    needs:
+      - build-artifact
+      - deploy-test
+    with:
+      environment: production
