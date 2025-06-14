@@ -15,10 +15,16 @@ jobs:
   deploy-test:
     name: Deploy Test
     uses: ./.github/workflows/deploy.yml
+
     needs:
       - build-artifact
+
     with:
       environment: test
+
+    permissions:
+      id-token: write
+      contents: read
 
   deploy-production:
     name: Deploy Production
@@ -28,3 +34,7 @@ jobs:
       - deploy-test
     with:
       environment: production
+
+    permissions:
+      id-token: write
+      contents: read
