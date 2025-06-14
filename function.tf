@@ -19,7 +19,7 @@ provider "aws" {
 }
 
 variable "environment_name" {
-  type = string
+  type        = string
   description = "The name of the environment"
 }
 
@@ -62,28 +62,28 @@ resource "aws_lambda_function" "lambda_function" {
   region = "us-east-1"
 
   function_name = "channel-events-${var.environment_name}"
-  description = "Post a notification in Slack when a channel is created or modified"
+  description   = "Post a notification in Slack when a channel is created or modified"
 
   role = aws_iam_role.lambda_function.arn
 
-  runtime = "python3.13"
+  runtime       = "python3.13"
   architectures = ["arm64"]
 
   environment {
     variables = {
       SLACK_SIGNING_SECRET = sensitive("")
-      SLACK_API_TOKEN = sensitive("")
+      SLACK_API_TOKEN      = sensitive("")
       SLACK_NOTIFY_CHANNEL = sensitive("")
     }
   }
 
-  package_type = "Zip"
-  filename = "./_bundle.zip"
-  handler = "handler.handler"
+  package_type     = "Zip"
+  filename         = "./_bundle.zip"
+  handler          = "handler.handler"
   source_code_hash = filebase64sha256("./_bundle.zip")
 
   memory_size = 512
-  timeout = 30
+  timeout     = 30
 
   tracing_config {
     mode = "Active"
@@ -99,7 +99,7 @@ resource "aws_lambda_function" "lambda_function" {
 resource "aws_lambda_function_url" "function_url" {
   region = "us-east-1"
 
-  function_name = aws_lambda_function.lambda_function.arn
+  function_name      = aws_lambda_function.lambda_function.arn
   authorization_type = "NONE"
 }
 
@@ -107,10 +107,10 @@ resource "aws_lambda_function_url" "function_url" {
 resource "aws_lambda_permission" "allow_cloudwatch" {
   region = "us-east-1"
 
-  statement_id  = "AllowUnauthenticatedAccessToInvokeFunctionUrl"
-  action        = "lambda:InvokeFunctionUrl"
-  function_name = aws_lambda_function.lambda_function.function_name
-  principal     = "*"
+  statement_id           = "AllowUnauthenticatedAccessToInvokeFunctionUrl"
+  action                 = "lambda:InvokeFunctionUrl"
+  function_name          = aws_lambda_function.lambda_function.function_name
+  principal              = "*"
   function_url_auth_type = "NONE"
 
   lifecycle {
