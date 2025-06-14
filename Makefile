@@ -8,7 +8,7 @@ env.json:
 	echo '{"ApiLambda": {"SLACK_SIGNING_SECRET": "", "SLACK_API_TOKEN": "", "SLACK_NOTIFY_CHANNEL": ""}}' > env.json
 
 _bundle.zip: clean
-	poetry bundle venv _bundle/ --clear --platform manylinux2014_arm64 --python /home/kristaps/miniconda3/bin/python3.13
+	poetry bundle venv _bundle/ --without dev --clear --platform manylinux2014_arm64 --python /home/kristaps/miniconda3/bin/python3.13
 	cd _bundle/lib/python3.13/site-packages/; zip -r ../../../../_bundle.zip .
 
 local: _bundle.zip env.json
