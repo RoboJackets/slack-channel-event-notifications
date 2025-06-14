@@ -47,7 +47,7 @@ jobs:
 
       - name: Build bundle
         run: |
-          poetry bundle venv _bundle/ --clear --platform manylinux2014_arm64 --python 3.13
+          poetry bundle venv _bundle/ --clear --platform manylinux2014_arm64 --python python3.13
           cd _bundle/lib/python3.13/site-packages/
           zip -r ../../../../_bundle.zip .
 
