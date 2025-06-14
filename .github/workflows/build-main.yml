@@ -12,6 +12,9 @@ jobs:
     name: Build Lambda ZIP
     uses: ./.github/workflows/build-artifact.yml
 
+    permissions:
+      contents: read
+
   deploy-test:
     name: Deploy Test
     uses: ./.github/workflows/deploy.yml
@@ -29,9 +32,11 @@ jobs:
   deploy-production:
     name: Deploy Production
     uses: ./.github/workflows/deploy.yml
+
     needs:
       - build-artifact
       - deploy-test
+
     with:
       environment: production
 
