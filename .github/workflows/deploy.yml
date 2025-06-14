@@ -34,9 +34,6 @@ jobs:
         with:
           name: artifact
 
-      - name: Unpack Lambda ZIP
-        run: ls
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
