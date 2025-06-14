@@ -65,4 +65,4 @@ jobs:
           echo "function_url=$(terraform output -raw function_url)" >> $GITHUB_OUTPUT
 
       - name: Ping function URL to make sure it's working
-        run: curl --silent --show-error --fail ${{ steps.get_outputs.outputs.function_url }}/ping
+        run: curl --silent --show-error --fail ${{ steps.get_outputs.outputs.function_url }}ping
