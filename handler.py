@@ -120,7 +120,7 @@ def ping() -> Response:  # type: ignore
 
 @app.get("/robots.txt")
 @tracer.capture_method
-def ping() -> Response:  # type: ignore
+def robotstxt() -> Response:  # type: ignore
     """
     Return a robots.txt file
     """
