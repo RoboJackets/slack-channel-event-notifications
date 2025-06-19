@@ -113,9 +113,18 @@ def handle_slack_event() -> Response:  # type: ignore
 @tracer.capture_method
 def ping() -> Response:  # type: ignore
     """
-    Returns an arbitrary successful response, for health checks
+    Return an arbitrary successful response, for health checks
     """
     return Response(status_code=200, content_type="text/plain", body="pong")
+
+
+@app.get("/robots.txt")
+@tracer.capture_method
+def ping() -> Response:  # type: ignore
+    """
+    Return a robots.txt file
+    """
+    return Response(status_code=200, content_type="text/plain", body="User-agent: *\nDisallow: /")
 
 
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.LAMBDA_FUNCTION_URL)
