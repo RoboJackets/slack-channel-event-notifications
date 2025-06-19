@@ -124,7 +124,9 @@ def ping() -> Response:  # type: ignore
     """
     Return a robots.txt file
     """
-    return Response(status_code=200, content_type="text/plain", body="User-agent: *\nDisallow: /")
+    return Response(
+        status_code=200, content_type="text/plain", body="User-agent: *\nDisallow: /"
+    )
 
 
 @logger.inject_lambda_context(correlation_id_path=correlation_paths.LAMBDA_FUNCTION_URL)
